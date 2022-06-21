@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "checkout": "apps/checkout",
+    "checkout-e2e": "apps/checkout-e2e",
+    "store": "apps/store",
+    "store-e2e": "apps/store-e2e"
+  }
+}
