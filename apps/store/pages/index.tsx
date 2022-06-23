@@ -1,7 +1,18 @@
 import dynamic from 'next/dynamic';
 import styles from './index.module.css';
 
-const BuyButton = dynamic(() => import('checkout/buy-button'), { ssr: false });
+const BuyButton = dynamic(
+  async () => {
+    console.log('aaaaaaaaaaaaa');
+
+    console.log(import('checkout/buy-button'));
+    const comp = await import('checkout/buy-button');
+    return comp;
+  },
+  {
+    ssr: false,
+  }
+);
 
 export function Home() {
   return (

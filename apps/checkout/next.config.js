@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNx = require('@nrwl/next/plugins/with-nx');
-const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
-const merge = require('webpack-merge');
+const { withFederatedSidecar, federationLoader } = require('@module-federation/nextjs-mf');
+const deps = require('../../package.json').dependencies;
+let merge = require('webpack-merge');
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
@@ -19,7 +20,7 @@ const nextConfig = {
     config.experiments = { topLevelAwait: true };
 
     config.module.rules.push({
-      test: /_app.js/,
+      test: /_app.tsx/,
       loader: '@module-federation/nextjs-mf/lib/federation-loader.js',
     });
 
@@ -27,14 +28,13 @@ const nextConfig = {
       // ignore it on SSR, realistically you probably wont be SSRing Fmodules, without paid support from @ScriptedAlchemy
       Object.assign(config.resolve.alias, {
         checkout: false,
-        home: false,
-        shop: false,
+        store: false,
       });
     } else {
       config.plugins.push(
         new webpack.container.ModuleFederationPlugin({
           remotes: {
-            shop: 'shop@http://localhost:4300/_next/static/chunks/remoteEntry.js',
+            store: 'store@http://localhost:4300/_next/static/chunks/remoteEntry.js',
             checkout: 'checkout@http://localhost:4200/_next/static/chunks/remoteEntry.js',
           },
           shared: {
@@ -70,7 +70,7 @@ module.exports = withFederatedSidecar({
   name: 'checkout',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
-    shop: 'shop@http://localhost:4300/_next/static/chunks/remoteEntry.js',
+    store: 'store@http://localhost:4300/_next/static/chunks/remoteEntry.js',
     checkout: 'checkout@http://localhost:4200/_next/static/chunks/remoteEntry.js',
   },
   exposes: {

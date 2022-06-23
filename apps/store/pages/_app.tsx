@@ -3,6 +3,8 @@ import Head from 'next/head';
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
+  console.log('_app.tsx', __webpack_share_scopes__);
+
   return (
     <>
       <Head>
