@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNx = require('@nrwl/next/plugins/with-nx');
-const { withFederatedSidecar, federationLoader } = require('@module-federation/nextjs-mf');
-const deps = require('../../package.json').dependencies;
+const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
 let merge = require('webpack-merge');
 
 /**
