@@ -4,6 +4,7 @@
   "projects": {
     "checkout": "apps/checkout",
     "checkout-e2e": "apps/checkout-e2e",
+    "design-system": "libs/design-system",
     "store": "apps/store",
     "store-e2e": "apps/store-e2e"
   }
