@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import styles from './index.module.css';
 
-export function Home() {
+export function Page() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to Store!</h1>
+      <h1>Welcome to Module Federation!</h1>
 
-      <Link href="/design-system">design-system</Link>
-      <Link href="/module-fedaration">module-fedaration</Link>
+      <Link href="/module-fedaration/component">component</Link>
+      <Link href="/module-fedaration/custom-hook">custom-hook</Link>
     </div>
   );
 }
 
-export default Home;
+export default Page;
