@@ -1,6 +1,6 @@
 import {
   Button,
-  colors,
+  baseColors,
   BaseColor,
 } from '@nextjs-nx-module-federation/design-system';
 
@@ -14,7 +14,7 @@ export function Page() {
       <h2>Buttons</h2>
 
       <div className={styles['grid']}>
-        {Object.keys(colors).map((color: BaseColor) => (
+        {Object.keys(baseColors).map((color: BaseColor) => (
           <Button color={color} key={color}>
             This is a {color} button
           </Button>
@@ -24,7 +24,7 @@ export function Page() {
       <h2>Outline Buttons</h2>
 
       <div className={styles['grid']}>
-        {Object.keys(colors).map((color: BaseColor) => (
+        {Object.keys(baseColors).map((color: BaseColor) => (
           <Button color={color} outline key={color}>
             This is a {color} button
           </Button>

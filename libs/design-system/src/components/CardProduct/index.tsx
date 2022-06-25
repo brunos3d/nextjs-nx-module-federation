@@ -1,10 +1,12 @@
-import { HTMLAttributes } from 'react';
 import NextImage from 'next/image';
 import cn from 'classnames';
 
+import { Card, CardBody, CardText, CardTitle, Badge, Button } from 'reactstrap';
+import type { CardProps } from 'reactstrap/types';
+
 import styles from './styles.module.scss';
 
-export interface CardProductProps extends HTMLAttributes<HTMLDivElement> {
+export interface CardProductProps extends CardProps {
   image: {
     src: string;
     alt: string;
@@ -13,6 +15,7 @@ export interface CardProductProps extends HTMLAttributes<HTMLDivElement> {
   description: string;
   tags?: string[];
   price: string;
+  onClick: () => void;
 }
 
 export function CardProduct({
@@ -22,10 +25,11 @@ export function CardProduct({
   tags,
   price,
   className,
+  onClick,
   ...props
 }: CardProductProps) {
   return (
-    <div className={cn(styles['card'], className)} {...props}>
+    <Card className={cn(styles['card'], className)} {...props}>
       <div className={styles['image-container']}>
         <NextImage
           src={image.src}
@@ -35,20 +39,28 @@ export function CardProduct({
         />
 
         <div className={styles['title-container']}>
-          <span className={styles['title']}>{title}</span>
+          <CardTitle className={styles['title']} tag="h5">
+            {title}
+          </CardTitle>
         </div>
       </div>
-      <div className={styles['card-body']}>
+      <CardBody className={styles['card-body']}>
+        <CardText className={styles['price']}>{price}</CardText>
         {tags && (
-          <ul className={styles['tags']}>
+          <ul className={cn(styles['tags'], 'm-0 mt-2')}>
             {tags.map((tag) => (
-              <span className={styles['tag']}>{tag}</span>
+              <Badge color="info" key={tag}>
+                {tag}
+              </Badge>
             ))}
           </ul>
         )}
-        <span className={styles['description']}>{description}</span>
-      </div>
-    </div>
+        <CardText className="mt-2">{description}</CardText>
+        <Button className="mt-3" color="primary" onClick={onClick}>
+          Add to cart
+        </Button>
+      </CardBody>
+    </Card>
   );
 }
 

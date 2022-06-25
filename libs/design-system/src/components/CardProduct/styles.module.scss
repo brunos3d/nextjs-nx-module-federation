@@ -35,19 +35,9 @@
 }
 
 .tags {
+  width: 100%;
+  padding: none;
   display: flex;
-  flex-wrap: wrap;
   row-gap: 5px;
   column-gap: 5px;
-  margin-bottom: 14px;
-}
-
-.tag {
-  padding: 0px 8px;
-  border-radius: 20px;
-  color: $base-light;
-  background-color: $base-secondary;
-}
-
-.description {
 }

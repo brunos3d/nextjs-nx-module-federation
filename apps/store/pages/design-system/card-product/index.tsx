@@ -3,7 +3,7 @@ import type { CardProductProps } from '@nextjs-nx-module-federation/design-syste
 
 import styles from './styles.module.css';
 
-const products: CardProductProps[] = [
+const products: Omit<CardProductProps, 'onClick'>[] = [
   {
     image: {
       src: '/assets/products/hamburguer.jpg',
@@ -45,10 +45,11 @@ export function Page() {
       <h1>Welcome to Card Product!</h1>
 
       <div className={styles['grid']}>
-        {products.map((product) => (
+        {products.map((product: CardProductProps) => (
           <CardProduct
             className={styles['card']}
             {...product}
+            onClick={() => alert(`Added ${product.title} to cart`)}
             key={product.title}
           />
         ))}
