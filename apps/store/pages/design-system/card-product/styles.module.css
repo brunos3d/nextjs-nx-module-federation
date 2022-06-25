@@ -1,0 +1,28 @@
+.container {
+  padding: 50px 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  width: 100%;
+  padding: 0 24px;
+  max-width: 1120px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card {
+  flex-basis: 100%;
+}
+
+@media (min-width: 1200px) {
+  .card {
+    max-width: 346px;
+  }
+}

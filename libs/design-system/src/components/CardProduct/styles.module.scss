@@ -1,0 +1,43 @@
+@import "../../styles/variables.scss";
+
+.card {
+  width: 100%;
+  min-width: 300px;
+  border: 1px solid $border-color;
+  border-radius: 20px;
+}
+
+.image-container {
+  overflow: hidden;
+  position: relative;
+  height: 240px;
+  border-radius: 20px 20px 0 0;
+}
+
+.title-container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 16px;
+  background-color: rgba($color: #000000, $alpha: 0.75);
+}
+
+.title {
+  color: $base-light;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tags {
+  width: 100%;
+  padding: none;
+  display: flex;
+  row-gap: 5px;
+  column-gap: 5px;
+}
