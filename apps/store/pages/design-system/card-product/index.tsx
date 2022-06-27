@@ -1,5 +1,6 @@
 import { CardProduct } from '@nextjs-nx-module-federation/design-system';
 import type { CardProductProps } from '@nextjs-nx-module-federation/design-system';
+import cn from 'classnames';
 
 import styles from './styles.module.css';
 
@@ -43,8 +44,12 @@ export function Page() {
   return (
     <div className={styles['container']}>
       <h1>Welcome to Card Product!</h1>
+      <p className="mt-2">
+        This page shows the usage of components held in an{' '}
+        <a href="https://nx.dev/structure/library-types">Nx Library</a>
+      </p>
 
-      <div className={styles['grid']}>
+      <div className={cn(styles['grid'], 'mt-5')}>
         {products.map((product: CardProductProps) => (
           <CardProduct
             className={styles['card']}
