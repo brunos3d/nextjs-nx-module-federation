@@ -9,19 +9,15 @@ type UseAddToCartHookResultType = {
   clearCart: () => void;
 };
 
-let useAddToCartHook: UseAddToCartHookType;
+let useAddToCartHook = (() => ({})) as UseAddToCartHookType;
 
 if (process.browser) {
   useAddToCartHook = require('checkout/useAddToCartHook').default;
 }
 
 export function Page() {
-  let cartHook = {} as UseAddToCartHookResultType;
-
-  if (process.browser) {
-    cartHook = useAddToCartHook();
-  }
-  const { itemsCount, addToCart, clearCart } = cartHook;
+  const { itemsCount, addToCart, clearCart } =
+    useAddToCartHook() as UseAddToCartHookResultType;
 
   return (
     <div className={styles['container']}>

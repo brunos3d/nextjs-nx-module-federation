@@ -6,7 +6,7 @@ export function Home() {
     <div className={styles['container']}>
       <h1>Welcome to Store!</h1>
 
-      <Link href="/module-federation/design-system">design-system</Link>
+      <Link href="/module-federation/component">component</Link>
       <Link href="/module-fedaration/custom-hook">custom-hook</Link>
     </div>
   );
