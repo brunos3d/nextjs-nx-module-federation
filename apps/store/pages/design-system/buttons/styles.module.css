@@ -7,8 +7,14 @@
   justify-content: center;
 }
 
+.board {
+  padding: 16px;
+  border-radius: 0.375rem;
+  border: 1px solid #ddd;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }

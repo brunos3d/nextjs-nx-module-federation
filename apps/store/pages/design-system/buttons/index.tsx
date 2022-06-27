@@ -1,34 +1,46 @@
-import {
-  Button,
-  baseColors,
-  BaseColor,
-} from '@nextjs-nx-module-federation/design-system';
+import { Button } from 'reactstrap';
 
 import styles from './styles.module.css';
+
+const colors = [
+  'primary',
+  'secondary',
+  'success',
+  'danger',
+  'warning',
+  'info',
+  'light',
+  'dark',
+  'white',
+];
 
 export function Page() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to Design System!</h1>
+      <h1>Welcome to Buttons!</h1>
 
       <h2>Buttons</h2>
 
-      <div className={styles['grid']}>
-        {Object.keys(baseColors).map((color: BaseColor) => (
-          <Button color={color} key={color}>
-            This is a {color} button
-          </Button>
-        ))}
+      <div className={styles['board']}>
+        <div className={styles['grid']}>
+          {colors.map((color) => (
+            <Button color={color} key={color}>
+              This is a {color} button
+            </Button>
+          ))}
+        </div>
       </div>
 
       <h2>Outline Buttons</h2>
 
-      <div className={styles['grid']}>
-        {Object.keys(baseColors).map((color: BaseColor) => (
-          <Button color={color} outline key={color}>
-            This is a {color} button
-          </Button>
-        ))}
+      <div className={styles['board']}>
+        <div className={styles['grid']}>
+          {colors.map((color) => (
+            <Button color={color} outline key={color}>
+              This is a {color} button
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );

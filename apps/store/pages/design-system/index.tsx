@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 export function Page() {
   return (
     <div className={styles['container']}>
-      <h1>Welcome to Design System components!</h1>
+      <h1>Welcome to Design System!</h1>
 
       <div className={styles['grid']}>
         <Link href="/design-system/buttons">buttons</Link>

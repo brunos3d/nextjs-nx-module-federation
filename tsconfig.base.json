@@ -20,6 +20,9 @@
     "paths": {
       "@nextjs-nx-module-federation/design-system": [
         "libs/design-system/src/index.ts"
+      ],
+      "@nextjs-nx-module-federation/design-system/*": [
+        "libs/design-system/src/*"
       ]
     }
   },
