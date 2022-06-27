@@ -19,11 +19,20 @@ export function Page() {
     <div className={styles['container']}>
       <h1>Welcome to Store!</h1>
 
-      <p>
+      <p className="mt-5">
         Item Count: <strong>{count}</strong>
       </p>
-      <BuyButton onClick={() => setCount((i) => i + 1)}>Add to Cart</BuyButton>
-      <BuyButton onClick={() => setCount(0)}>Clear Cart</BuyButton>
+
+      <div className="row mt-3">
+        <div className="col">
+          <BuyButton onClick={() => setCount((i) => i + 1)}>
+            Add to Cart
+          </BuyButton>
+        </div>
+        <div className="col ml-3">
+          <BuyButton onClick={() => setCount(0)}>Clear Cart</BuyButton>
+        </div>
+      </div>
     </div>
   );
 }
