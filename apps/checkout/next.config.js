@@ -69,8 +69,8 @@ module.exports = withFederatedSidecar({
   name: 'checkout',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
-    store: 'store@http://localhost:4300/_next/static/chunks/remoteEntry.js',
-    checkout: 'checkout@http://localhost:4200/_next/static/chunks/remoteEntry.js',
+    store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
+    checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
   },
   exposes: {
     './buy-button': './components/buy-button/buy-button.tsx',
