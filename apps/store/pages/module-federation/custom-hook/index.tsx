@@ -4,8 +4,7 @@ import type { NextPage, NextPageContext } from 'next';
 const page = import('../../../async-pages/module-federation/custom-hook');
 
 const Page = dynamic(
-  () => import('../../../async-pages/module-federation/custom-hook'),
-  { suspense: true }
+  () => import('../../../async-pages/module-federation/custom-hook')
 ) as NextPage;
 
 Page.getInitialProps = async (ctx: NextPageContext) => {
