@@ -1,22 +1,19 @@
 import dynamic from 'next/dynamic';
+import type { NextPage, NextPageContext } from 'next';
 
-import styles from './styles.module.css';
+const page = import('../../../async-pages/module-federation/custom-hook');
 
-const CartCounter = dynamic(
-  async () => import('../../../components/CartCounter'),
-  {
-    ssr: false,
+const Page = dynamic(
+  () => import('../../../async-pages/module-federation/custom-hook'),
+  { suspense: true }
+) as NextPage;
+
+Page.getInitialProps = async (ctx: NextPageContext) => {
+  const getInitialProps = ((await page).default as NextPage)?.getInitialProps;
+  if (getInitialProps) {
+    return getInitialProps(ctx);
   }
-);
-
-export function Page() {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Custom Hook!</h1>
-
-      <CartCounter />
-    </div>
-  );
-}
+  return {};
+};
 
 export default Page;
