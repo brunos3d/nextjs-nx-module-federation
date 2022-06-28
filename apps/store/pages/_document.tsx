@@ -13,11 +13,11 @@ class MyDocument extends Document {
         <body>
           <script
             data-webpack="checkout"
-            src={`${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`}
+            src={`${process.env.NEXT_PUBLIC_CHECKOUT_URL || 'http://localhost:4200'}/_next/static/chunks/remoteEntry.js`}
           />
           <script
             data-webpack="store"
-            src={`${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`}
+            src={`${process.env.NEXT_PUBLIC_STORE_URL ||  'http://localhost:4300'}/_next/static/chunks/remoteEntry.js`}
           />
           <Main />
           <NextScript />
