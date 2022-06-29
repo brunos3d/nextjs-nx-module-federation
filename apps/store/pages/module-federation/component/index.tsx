@@ -18,6 +18,9 @@ export function Page() {
   return (
     <div className={styles['container']}>
       <h1>Welcome to Store!</h1>
+      <p className="mt-2">
+        This page is a demo of Module Federation components
+      </p>
 
       <p className="mt-5">
         Item Count: <strong>{count}</strong>
