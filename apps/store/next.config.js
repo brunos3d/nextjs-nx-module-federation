@@ -33,8 +33,8 @@ const nextConfig = {
       config.plugins.push(
         new webpack.container.ModuleFederationPlugin({
           remotes: {
-            store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
-            checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
+            store: `store@${process.env.NEXT_PUBLIC_STORE_URL ||  'http://localhost:4300'}/_next/static/chunks/remoteEntry.js`,
+            checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL || 'http://localhost:4200'}/_next/static/chunks/remoteEntry.js`,
           },
           shared: {
             react: {

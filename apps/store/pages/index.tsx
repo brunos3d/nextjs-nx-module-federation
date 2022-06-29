@@ -24,7 +24,7 @@ export function Page() {
         )
       </h3>
       <Link href="/module-federation/component">component</Link>
-      <Link href="/module-fedaration/custom-hook">custom-hook</Link>
+      <Link href="/module-federation/custom-hook">custom-hook</Link>
     </div>
   );
 }
