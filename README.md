@@ -11,6 +11,32 @@ Also this project was created as a proof of concept to write one article, you ca
 - 🇬🇧 [English](https://brunos3d.notion.site/Nx-Next-js-and-Module-Federation-EN-US-9c945124ddc246a8b8ca0b5a4a4343a7)
 - 🇧🇷 [Portuguese (pt-br)](https://brunos3d.notion.site/Nx-Next-js-e-Module-Federation-PT-BR-7602efbb3b3c41468e961fac5a5b9605)
 
+## Techs & Tools
+
+This project came with some powerful tools
+
+### Core
+
+- [Nx](https://nx.dev/)
+- [Next.js](https://nextjs.org/)
+- [Webpack](https://webpack.js.org/)
+
+### Plugins
+
+- [Nx + Next.js plugin](https://nx.dev/packages/next)
+- [@module-federation/nextjs-mf](https://app.privjs.com/package?pkg=@module-federation/nextjs-mf)
+
+### Linting & Tests
+
+- [Jest](https://jestjs.io/)
+- [Cypress](https://www.cypress.io/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+
+### 3rd party components
+
+- [reactstrap](https://reactstrap.github.io/)
+
 ## Remotes
 
 - Checkout ([preview](https://nextjs-nx-module-federation-checkout.vercel.app))
