@@ -2,14 +2,14 @@
 
 This is an example project to demonstrate how to use Nx, Next.js and Module Federation together.
 
+> ⚠ This example depends on [@module-federation/nextjs-mf](https://app.privjs.com/package?pkg=@module-federation/nextjs-mf). It will not work unless you have access to this plugin, which is not free.
+
 ## Articles
 
 Also this project was created as a proof of concept to write one article, you can read it here:
 
 - 🇬🇧 [English](https://brunos3d.notion.site/Nx-Next-js-and-Module-Federation-EN-US-9c945124ddc246a8b8ca0b5a4a4343a7)
 - 🇧🇷 [Portuguese (pt-br)](https://brunos3d.notion.site/Nx-Next-js-e-Module-Federation-PT-BR-7602efbb3b3c41468e961fac5a5b9605)
-
-This example depends on [@module-federation/nextjs-mf](https://app.privjs.com/package?pkg=@module-federation/nextjs-mf). It will not work unless you have access to this plugin, which is not free.
 
 ## Remotes
 
