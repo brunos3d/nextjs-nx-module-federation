@@ -58,6 +58,7 @@ const medusaProvider = withMedusa({
   name: "store",
   publishVersion: packageVersion,
   filename: "dashboard.json",
+  packageJsonPath: require.resolve('../../package.json'),
   dashboardURL: `http://localhost:3333/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
   versionChangeWebhook: "http://cnn.com/",
   metadata: {
