@@ -1,6 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const withPlugins = require("next-compose-plugins");
 const withNx = require('@nrwl/next/plugins/with-nx');
+const { withMedusa } = require("@module-federation/dashboard-plugin");
 const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
+const packageVersion = require('../../package.json').version;
 let merge = require('webpack-merge');
 
 /**
@@ -14,7 +17,7 @@ const nextConfig = {
   },
   webpack5: true,
   webpack(config, options) {
-    const { webpack, isServer } = options;
+    const { isServer } = options;
 
     config.experiments = { topLevelAwait: true };
 
@@ -29,27 +32,6 @@ const nextConfig = {
         checkout: false,
         store: false,
       });
-    } else {
-      config.plugins.push(
-        new webpack.container.ModuleFederationPlugin({
-          remotes: {
-            store: `store@${process.env.NEXT_PUBLIC_STORE_URL ||  'http://localhost:4300'}/_next/static/chunks/remoteEntry.js`,
-            checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL || 'http://localhost:4200'}/_next/static/chunks/remoteEntry.js`,
-          },
-          shared: {
-            react: {
-              singleton: true,
-              eager: true,
-              requiredVersion: false,
-            },
-            'styled-jsx': {
-              requiredVersion: false,
-              singleton: true,
-              eager: true,
-            },
-          },
-        }),
-      );
     }
 
     return merge.merge(config, {
@@ -62,20 +44,38 @@ const nextConfig = {
   },
 };
 
-
-const nxNextConfig = withNx(nextConfig)
-
-module.exports = withFederatedSidecar({
+const federatedSidecarProvider = withFederatedSidecar({
   name: 'store',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
     store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
     checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
   },
-  shared: {
-    react: {
-      requiredVersion: false,
-      singleton: true,
+  shared: {},
+});
+
+const medusaProvider = withMedusa({
+  name: "store",
+  publishVersion: packageVersion,
+  filename: "dashboard.json",
+  dashboardURL: `http://localhost:3333/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
+  versionChangeWebhook: "http://cnn.com/",
+  metadata: {
+    clientUrl: "http://localhost:3333",
+    baseUrl: process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL
+      : "http://localhost:3001",
+    source: {
+      url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
     },
+    remote: process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL + "/remoteEntry.js"
+      : "http://localhost:3001/remoteEntry.js",
   },
-})(nxNextConfig);
+});
+
+module.exports = withPlugins([
+  withNx,
+  federatedSidecarProvider,
+  medusaProvider
+], nextConfig)
