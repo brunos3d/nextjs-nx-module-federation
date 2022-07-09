@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNx = require('@nrwl/next/plugins/with-nx');
+const withPlugins = require("next-compose-plugins");
 const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
+const {withMedusa} = require('@module-federation/dashboard-plugin')
 let merge = require('webpack-merge');
 
 /**
@@ -42,9 +44,30 @@ const nextConfig = {
 };
 
 
-const nxNextConfig = withNx(nextConfig)
 
-module.exports = withFederatedSidecar({
+const withMedusaProvider = withMedusa({
+  name: "store",
+  publishVersion: packageVersion,
+  filename: "dashboard.json",
+  packageJsonPath: require.resolve('../../package.json'),
+  dashboardURL: `http://localhost:3333/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
+  versionChangeWebhook: "http://cnn.com/",
+  metadata: {
+    clientUrl: "http://localhost:3333",
+    baseUrl: process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL
+      : "http://localhost:3001",
+    source: {
+      url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
+    },
+    remote: process.env.VERCEL_URL
+      ? "https://" + process.env.VERCEL_URL + "/remoteEntry.js"
+      : "http://localhost:3001/remoteEntry.js",
+  },
+});
+
+
+const withFederationProvider = withFederatedSidecar({
   name: 'checkout',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
@@ -56,5 +79,12 @@ module.exports = withFederatedSidecar({
     './useAddToCartHook': './hooks/useAddToCart.ts',
   },
   shared: {
-  },
-})(nxNextConfig);
+  }
+})
+
+
+module.exports = withPlugins([
+  withNx,
+  withFederationProvider,
+  withMedusaProvider
+], nextConfig)
