@@ -23,6 +23,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@module-federation/dashboard-plugin": "^2.4.0",
     "@nrwl/cli": "14.3.6",
     "@nrwl/cypress": "14.3.6",
     "@nrwl/eslint-plugin-nx": "14.3.6",
