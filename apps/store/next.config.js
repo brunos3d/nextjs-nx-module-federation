@@ -54,24 +54,22 @@ const federatedSidecarProvider = withFederatedSidecar({
   shared: {},
 });
 
+const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
+
 const medusaProvider = withMedusa({
   name: "store",
   publishVersion: packageVersion,
   filename: "dashboard.json",
   packageJsonPath: require.resolve('../../package.json'),
-  dashboardURL: `http://localhost:3333/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
+  dashboardURL: `${MEDUSA_API_URL}/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
   versionChangeWebhook: "http://cnn.com/",
   metadata: {
-    clientUrl: "http://localhost:3333",
-    baseUrl: process.env.VERCEL_URL
-      ? "https://" + process.env.VERCEL_URL
-      : "http://localhost:3001",
+    clientUrl: MEDUSA_API_URL,
+    baseUrl: process.env.NEXT_PUBLIC_STORE_URL || "http://localhost:4300",
     source: {
       url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
     },
-    remote: process.env.VERCEL_URL
-      ? "https://" + process.env.VERCEL_URL + "/remoteEntry.js"
-      : "http://localhost:3001/remoteEntry.js",
+    remote: (process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200") + "/remoteEntry.js",
   },
 });
 
