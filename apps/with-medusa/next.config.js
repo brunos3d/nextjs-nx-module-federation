@@ -1,11 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const withNx = require('@nrwl/next/plugins/with-nx');
 const withPlugins = require("next-compose-plugins");
+const withNx = require('@nrwl/next/plugins/with-nx');
+const { withMedusa } = require("@module-federation/dashboard-plugin");
 const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
-const { withMedusa } = require('@module-federation/dashboard-plugin')
+const packageVersion = require('../../package.json').version;
 let merge = require('webpack-merge');
 
-const WITH_MEDUSA_APP_URL = process.env.NEXT_PUBLIC_WITH_MEDUSA_APP_URL || "http://localhost:4400";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:4400";
 const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200";
 const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
 
@@ -33,7 +34,6 @@ const nextConfig = {
       // ignore it on SSR, realistically you probably wont be SSRing Fmodules, without paid support from @ScriptedAlchemy
       Object.assign(config.resolve.alias, {
         checkout: false,
-        store: false,
         with_medusa: false,
       });
     }
@@ -48,46 +48,35 @@ const nextConfig = {
   },
 };
 
+const federatedSidecarProvider = withFederatedSidecar({
+  name: 'store',
+  filename: 'static/chunks/remoteEntry.js',
+  remotes: {
+    checkout: `checkout@${CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
+    with_medusa: `with_medusa@${APP_URL}/_next/static/chunks/remoteEntry.js`,
+  },
+  shared: {},
+});
 
-
-const withMedusaProvider = withMedusa({
-  name: "checkout",
-  publishVersion: require("../../package.json").version,
+const medusaProvider = withMedusa({
+  name: "with_medusa",
+  publishVersion: packageVersion,
   filename: "dashboard.json",
   packageJsonPath: require.resolve('../../package.json'),
   dashboardURL: `${MEDUSA_API_URL}/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
   versionChangeWebhook: "http://cnn.com/",
   metadata: {
     clientUrl: MEDUSA_API_URL,
-    baseUrl: CHECKOUT_URL,
+    baseUrl: APP_URL,
     source: {
-      url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
+      url: "https://github.com/BrunoS3D/nextjs-nx-module-federation/tree/main/apps/with-medusa",
     },
-    // URL of the production deployment
-    remote: CHECKOUT_URL || "http://localhost:3001/remoteEntry.js",
+    remote: APP_URL + "/remoteEntry.js",
   },
 });
 
-
-const withFederationProvider = withFederatedSidecar({
-  name: 'checkout',
-  filename: 'static/chunks/remoteEntry.js',
-  remotes: {
-    store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
-    checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
-    with_medusa: `with_medusa@${APP_URL}/_next/static/chunks/remoteEntry.js`,
-  },
-  exposes: {
-    './buy-button': './components/buy-button/buy-button.tsx',
-    './useAddToCartHook': './hooks/useAddToCart.ts',
-  },
-  shared: {
-  }
-})
-
-
 module.exports = withPlugins([
   withNx,
-  withFederationProvider,
-  withMedusaProvider
+  federatedSidecarProvider,
+  medusaProvider
 ], nextConfig)

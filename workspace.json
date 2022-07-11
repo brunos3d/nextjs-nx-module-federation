@@ -6,6 +6,8 @@
     "checkout-e2e": "apps/checkout-e2e",
     "design-system": "libs/design-system",
     "store": "apps/store",
-    "store-e2e": "apps/store-e2e"
+    "store-e2e": "apps/store-e2e",
+    "with-medusa": "apps/with-medusa",
+    "with-medusa-e2e": "apps/with-medusa-e2e"
   }
 }
