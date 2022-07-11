@@ -46,8 +46,8 @@ const nextConfig = {
 
 
 const withMedusaProvider = withMedusa({
-  name: "store",
-  publishVersion: packageVersion,
+  name: "checkout",
+  publishVersion: require("../../package.json").version,
   filename: "dashboard.json",
   packageJsonPath: require.resolve('../../package.json'),
   dashboardURL: `http://localhost:3333/api/update?token=${process.env.DASHBOARD_WRITE_TOKEN}`,
