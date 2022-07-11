@@ -7,8 +7,7 @@ let merge = require('webpack-merge');
 
 const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || "http://localhost:4300";
 const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200";
-const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
-
+const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "https://api.medusa.codes";
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
