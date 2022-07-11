@@ -14,7 +14,7 @@ const nextConfig = {
   },
   webpack5: true,
   webpack(config, options) {
-    const { webpack, isServer } = options;
+    const { isServer } = options;
 
     config.experiments = { topLevelAwait: true };
 
@@ -29,27 +29,6 @@ const nextConfig = {
         checkout: false,
         store: false,
       });
-    } else {
-      config.plugins.push(
-        new webpack.container.ModuleFederationPlugin({
-          remotes: {
-            store: `store@${process.env.NEXT_PUBLIC_STORE_URL ||  'http://localhost:4300'}/_next/static/chunks/remoteEntry.js`,
-            checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL || 'http://localhost:4200'}/_next/static/chunks/remoteEntry.js`,
-          },
-          shared: {
-            react: {
-              singleton: true,
-              eager: true,
-              requiredVersion: false,
-            },
-            'styled-jsx': {
-              requiredVersion: false,
-              singleton: true,
-              eager: true,
-            },
-          },
-        }),
-      );
     }
 
     return merge.merge(config, {
@@ -72,10 +51,5 @@ module.exports = withFederatedSidecar({
     store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
     checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
   },
-  shared: {
-    react: {
-      requiredVersion: false,
-      singleton: true,
-    },
-  },
+  shared: {},
 })(nxNextConfig);
