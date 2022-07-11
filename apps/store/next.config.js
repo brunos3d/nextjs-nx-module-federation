@@ -6,6 +6,10 @@ const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
 const packageVersion = require('../../package.json').version;
 let merge = require('webpack-merge');
 
+const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || "http://localhost:4300";
+const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200";
+const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
+
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
@@ -48,13 +52,11 @@ const federatedSidecarProvider = withFederatedSidecar({
   name: 'store',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
-    store: `store@${process.env.NEXT_PUBLIC_STORE_URL}/_next/static/chunks/remoteEntry.js`,
-    checkout: `checkout@${process.env.NEXT_PUBLIC_CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
+    store: `store@${STORE_URL}/_next/static/chunks/remoteEntry.js`,
+    checkout: `checkout@${CHECKOUT_URL}/_next/static/chunks/remoteEntry.js`,
   },
   shared: {},
 });
-
-const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
 
 const medusaProvider = withMedusa({
   name: "store",
@@ -65,11 +67,11 @@ const medusaProvider = withMedusa({
   versionChangeWebhook: "http://cnn.com/",
   metadata: {
     clientUrl: MEDUSA_API_URL,
-    baseUrl: process.env.NEXT_PUBLIC_STORE_URL || "http://localhost:4300",
+    baseUrl: STORE_URL,
     source: {
       url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
     },
-    remote: (process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200") + "/remoteEntry.js",
+    remote: CHECKOUT_URL + "/remoteEntry.js",
   },
 });
 
