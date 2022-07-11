@@ -10,6 +10,7 @@ const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || "http://localhost:4300";
 const CHECKOUT_URL = process.env.NEXT_PUBLIC_CHECKOUT_URL || "http://localhost:4200";
 const MEDUSA_API_URL = process.env.NEXT_PUBLIC_MEDUSA_API_URL || "http://localhost:3333";
 
+
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
@@ -48,7 +49,7 @@ const nextConfig = {
   },
 };
 
-const federatedSidecarProvider = withFederatedSidecar({
+const withFederationProvider = withFederatedSidecar({
   name: 'store',
   filename: 'static/chunks/remoteEntry.js',
   remotes: {
@@ -58,7 +59,7 @@ const federatedSidecarProvider = withFederatedSidecar({
   shared: {},
 });
 
-const medusaProvider = withMedusa({
+const withMedusaProvider = withMedusa({
   name: "store",
   publishVersion: packageVersion,
   filename: "dashboard.json",
@@ -69,14 +70,15 @@ const medusaProvider = withMedusa({
     clientUrl: MEDUSA_API_URL,
     baseUrl: STORE_URL,
     source: {
-      url: "https://github.com/module-federation/federation-dashboard/tree/master/dashboard-example/home",
+      url: "https://github.com/BrunoS3D/nextjs-nx-module-federation/tree/main/apps/store",
     },
-    remote: CHECKOUT_URL + "/remoteEntry.js",
+    // here you can add the production URL
+    remote: (STORE_URL || "https://nextjs-nx-module-federation-store.vercel.app") + "/remoteEntry.js",
   },
 });
 
 module.exports = withPlugins([
   withNx,
-  federatedSidecarProvider,
-  medusaProvider
+  withFederationProvider,
+  withMedusaProvider
 ], nextConfig);
