@@ -2,7 +2,7 @@
 const withNx = require('@nrwl/next/plugins/with-nx');
 const withPlugins = require("next-compose-plugins");
 const { withFederatedSidecar } = require('@module-federation/nextjs-mf');
-const {withMedusa} = require('@module-federation/dashboard-plugin')
+const { withMedusa } = require('@module-federation/dashboard-plugin')
 let merge = require('webpack-merge');
 
 /**
@@ -43,8 +43,6 @@ const nextConfig = {
   },
 };
 
-
-
 const withMedusaProvider = withMedusa({
   name: "checkout",
   publishVersion: require("../../package.json").version,
@@ -66,7 +64,6 @@ const withMedusaProvider = withMedusa({
   },
 });
 
-
 const withFederationProvider = withFederatedSidecar({
   name: 'checkout',
   filename: 'static/chunks/remoteEntry.js',
@@ -78,13 +75,11 @@ const withFederationProvider = withFederatedSidecar({
     './buy-button': './components/buy-button/buy-button.tsx',
     './useAddToCartHook': './hooks/useAddToCart.ts',
   },
-  shared: {
-  }
+  shared: {}
 })
-
 
 module.exports = withPlugins([
   withNx,
   withFederationProvider,
   withMedusaProvider
-], nextConfig)
+], nextConfig);

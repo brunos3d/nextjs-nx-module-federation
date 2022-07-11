@@ -79,4 +79,4 @@ module.exports = withPlugins([
   withNx,
   federatedSidecarProvider,
   medusaProvider
-], nextConfig)
+], nextConfig);
