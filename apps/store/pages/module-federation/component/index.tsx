@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './styles.module.css';
 
-const BuyButton = dynamic<{ children: string; onClick: () => void }>(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: Cannot find module
-  async () => import('checkout/buy-button'),
-  {
-    ssr: false,
-  }
-);
+const BuyButton = dynamic(() => import('checkout/buy-button'));
 
 export function Page() {
   const [count, setCount] = useState<number>(0);

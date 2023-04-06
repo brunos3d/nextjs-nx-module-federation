@@ -1,18 +1,31 @@
-import dynamic from 'next/dynamic';
-import type { NextPage, NextPageContext } from 'next';
+import useAddToCartHook from 'checkout/useAddToCartHook';
+import styles from './styles.module.css';
 
-const page = import('../../../async-pages/module-federation/custom-hook');
+export function Page() {
+  const { itemsCount, addToCart, clearCart } = useAddToCartHook();
 
-const Page = dynamic(
-  () => import('../../../async-pages/module-federation/custom-hook')
-) as NextPage;
+  return (
+    <div className={styles['container']}>
+      <h1>Welcome to Custom Hook!</h1>
 
-Page.getInitialProps = async (ctx: NextPageContext) => {
-  const getInitialProps = ((await page).default as NextPage)?.getInitialProps;
-  if (getInitialProps) {
-    return getInitialProps(ctx);
-  }
-  return {};
-};
+      <p className="mt-5">
+        Item Count: <strong>{itemsCount}</strong>
+      </p>
+
+      <div className="flex mt-3">
+        <button type="button" className="btn btn-primary" onClick={addToCart}>
+          Add to Cart
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger ms-2"
+          onClick={clearCart}
+        >
+          Clear Cart
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default Page;

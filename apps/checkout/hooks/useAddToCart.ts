@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function useAddToCartHook() {
+export function useAddToCartHook() {
   const [itemsCount, setItemsCount] = useState<number>(0);
   return {
     itemsCount,
@@ -8,3 +8,5 @@ export default function useAddToCartHook() {
     clearCart: () => setItemsCount(0),
   };
 }
+
+export default useAddToCartHook;
